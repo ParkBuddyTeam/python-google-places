@@ -231,7 +231,7 @@ class GooglePlaces(object):
 
     def nearby_search(self, language=lang.ENGLISH, keyword=None, location=None,
                lat_lng=None, name=None, radius=3200, rankby=ranking.PROMINENCE,
-               sensor=False, type=None, types=[], pagetoken=None):
+               sensor=False, type=None, types=[], pagetoken=None, request_count=0):
         """Perform a nearby search using the Google Places API.
 
         One of either location, lat_lng or pagetoken are required, the rest of 
@@ -299,6 +299,7 @@ class GooglePlaces(object):
             self._request_params['pagetoken'] = pagetoken
         if language is not None:
             self._request_params['language'] = language
+        self._request_params['request_count'] = request_count
         self._add_required_param_keys()
         url, places_response = _fetch_remote_json(
                 GooglePlaces.NEARBY_SEARCH_API_URL, self._request_params)
